@@ -1,1 +1,1 @@
-This Repo has a collection of my Python projects
+This Repo has a collection of my personal Python projects
