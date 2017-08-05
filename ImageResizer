@@ -1,5 +1,6 @@
 import cv2
 import os
+import operator
 
 def imageResizer(location,BiggerSmaller, ResizeFactor, Colour):
 
@@ -10,16 +11,21 @@ def imageResizer(location,BiggerSmaller, ResizeFactor, Colour):
     Colour: 0 for Grey scale, 1 for colour.
     '''
 
+    operations = {"*": operator.mul,
+                 "/": operator.truediv}
     files = os.listdir(location)
     imagelist = []
     loc = location
+    BS = operations["/"]
 
-    if BiggerSmaller.lower == "bigger":
-        BS = "*"
+    
+    """This section checks what operation is needed and what suffix will be set."""    
+    if BiggerSmaller.lower() == "bigger":
+        BS = operations["*"]
         suffix = "_bigger"
-    elif BiggerSmaller.lower == "smaller":
-        BS = "/"
-        suffix = "_Smaller"
+    elif BiggerSmaller.lower() == "smaller":
+        BS = operations["/"]
+        suffix = "_smaller"
     else:
         suffix = "_Copy"
 
@@ -29,22 +35,20 @@ def imageResizer(location,BiggerSmaller, ResizeFactor, Colour):
     for file in files:
         if file.endswith(".jpg") or file.endswith(".png"):
             imagelist.append(file)
-
+            
 
     for images in imagelist:
-
         """
         Loops through all the images and adjusts them
         """
-
         img = cv2.imread(location + "\\" + images, Colour)
-
         if Colour == 1:
             imagesizeX, imagesizey, RGB = img.shape
         else:
             imagesizeX, imagesizey = img.shape
 
-        image=cv2.resize(img,(int( imagesizey/ResizeFactor),int(imagesizeX/ResizeFactor)))
+        image=cv2.resize(img,(int( BS(imagesizey,ResizeFactor)),int(BS(imagesizeX,ResizeFactor))))
+        # image=cv2.resize(img,(int( imagesizey/ResizeFactor),int(imagesizeX/ResizeFactor)))
         cv2.imshow("Display", image)
 
         if images.endswith(".jpg"):
@@ -54,7 +58,5 @@ def imageResizer(location,BiggerSmaller, ResizeFactor, Colour):
         elif images.endswith(".png"):
             cv2.imwrite(location + "\\" + images[:-4] + suffix + ".png", image)
             cv2.waitKey(100)
-
-
 
 imageResizer(rLocation","Smaller" , 1, 1)
