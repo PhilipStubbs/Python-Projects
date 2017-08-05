@@ -48,7 +48,6 @@ def imageResizer(location,BiggerSmaller, ResizeFactor, Colour):
             imagesizeX, imagesizey = img.shape
 
         image=cv2.resize(img,(int( BS(imagesizey,ResizeFactor)),int(BS(imagesizeX,ResizeFactor))))
-        # image=cv2.resize(img,(int( imagesizey/ResizeFactor),int(imagesizeX/ResizeFactor)))
         cv2.imshow("Display", image)
 
         if images.endswith(".jpg"):
