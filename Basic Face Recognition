@@ -13,7 +13,7 @@ class FaceRecognition(object):
         self.Face = self.FaceCascade.detectMultiScale(self.grey_img, scaleFactor=1.05, minNeighbors=5)
 
     # def RecognitizeFace(self):
-    #     self.Face = face_cascade.detectMultiScale(self.grey.img, scaleFactor=1.05, minNeighbors=5)
+    #     self.Face = self.FaceCascade.detectMultiScale(self.grey.img, scaleFactor=1.05, minNeighbors=5)
 
     def ShowImage(self):
         for x, y, w, h in self.Face:
