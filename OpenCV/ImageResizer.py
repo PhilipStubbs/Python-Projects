@@ -58,4 +58,4 @@ def imageResizer(location,BiggerSmaller, ResizeFactor, Colour):
             cv2.imwrite(location + "\\" + images[:-4] + suffix + ".png", image)
             cv2.waitKey(100)
 
-imageResizer(rLocation","Smaller" , 1, 1)
+imageResizer("Location","Smaller" , 1, 1)
